@@ -45,6 +45,14 @@ enum class EQuestRewardType : uint8
 	ERT_Item = 1			UMETA(DisplayName = "物品"),
 };
 
+// 任务触发方式枚举
+UENUM(BlueprintType)
+enum class EQuestTriggerModeType : uint8
+{
+	EQTT_Sequence = 0		UMETA(DisplayName = "视频"),
+	EQTT_Dialog	  = 1		UMETA(DisplayName = "对话"),
+};
+
 // 任务奖励
 USTRUCT(BlueprintType)
 struct FQuestReward
@@ -77,6 +85,14 @@ USTRUCT(BlueprintType)
 struct FQuestTriggerMode
 {
 	GENERATED_BODY()
+
+	// 触发方式ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName mTriggerModeID;
+
+	// 触发类型
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EQuestTriggerModeType mTriggerModeType;
 };
 
 // 任务
@@ -120,4 +136,17 @@ struct FQuestData : public FTableRowBase
 	// 任务奖励
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FQuestReward> mRewards;
+};
+
+// 触发方式
+USTRUCT(BlueprintType)
+struct FQuestSequence : public FTableRowBase
+{
+	GENERATED_BODY()
+	// 任务ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName mID;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSoftObjectPtr<class ULevelSequence> mSequence;
 };

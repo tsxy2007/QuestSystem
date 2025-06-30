@@ -39,6 +39,7 @@ public class QuestSystem : ModuleRules
 				"Slate",
 				"SlateCore",
                 "GameplayTags",
+                "LevelSequence",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
