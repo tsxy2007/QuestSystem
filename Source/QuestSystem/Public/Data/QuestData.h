@@ -1,4 +1,4 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+ï»¿// Fill out your copyright notice in the Description page of Project Settings.
 
 #pragma once
 
@@ -8,57 +8,95 @@
 #include <GameplayTagContainer.h>
 #include "QuestData.generated.h"
 
+// ä»»åŠ¡ç±»å‹
 UENUM(BlueprintType)
 enum class EQuestType : uint8
 {
-	QT_None,
-	QT_Main,
-	QT_Daily,
+	QT_Main   UMETA(DisplayName = "ä¸»çº¿"),
+	QT_Daily  UMETA(DisplayName = "æ—¥å¸¸"),
 };
 
-// ÈÎÎñ½±Àø
+// ä»»åŠ¡ç­‰çº§
+UENUM(BlueprintType)
+enum class EQuestPriority : uint8
+{
+	EQP_Low = 0			UMETA(DisplayName = "ä½"),
+	EQP_Normal = 1		UMETA(DisplayName = "æ­£å¸¸"),
+	EQP_High = 2		UMETA(DisplayName = "é«˜"),
+	EQP_Urgent = 3		UMETA(DisplayName = "ç´§æ€¥"),
+};
+
+UENUM(BlueprintType)
+enum class EQuestState : uint8
+{
+	EQS_Accept = 0			UMETA(DisplayName = "æ¥å—"),
+	EQS_Going = 1			UMETA(DisplayName = "è¿›è¡Œä¸­"),
+	EQS_Completed = 2		UMETA(DisplayName = "å®Œæˆ"),
+	EQS_Canceled = 3		UMETA(DisplayName = "å–æ¶ˆ"),
+};
+
+// ä»»åŠ¡å¥–åŠ±
 USTRUCT(BlueprintType)
 struct FQuestReward
 {
 	GENERATED_BODY()
+
+	UPROPERTY(EditAnywhere, BlueprintReadOnly)
+	FName mQRId;
 };
 
-// ÈÎÎñÄ¿±ê
+// ä»»åŠ¡ç›®æ ‡
 USTRUCT(BlueprintType)
 struct FQuestObjective
 {
 	GENERATED_BODY()
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
-	FGameplayTag mObjectiveTag;
+	FName FQOId;
 };
 
+// æ¥æ”¶ä»»åŠ¡æ–¹å¼
+USTRUCT(BlueprintType)
+struct FQuestCondition
+{
+	GENERATED_BODY()
+};
+
+// ä»»åŠ¡
 USTRUCT(BlueprintType)
 struct FQuestData : public FTableRowBase
 {
 	GENERATED_BODY()
 
-	// ÈÎÎñID
+	// ä»»åŠ¡ID
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	FName QID;
+	FName mID;
 
-	// ºóĞøÈÎÎñID
+	// ä»»åŠ¡æè¿°
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FName> QFollowID;
+	FText mDesc;
 
-	// ÈÎÎñÃèÊö
+	// ä»»åŠ¡ç±»å‹
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EQuestType mType;
+
+	// åç»­ä»»åŠ¡ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FName> mNextID;
+
+	// ä»»åŠ¡ä¼˜å…ˆçº§
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	EQuestPriority mPriority;
+
+	// è§¦å‘æ¡ä»¶
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
-	FText QDesc;
+	TArray<FQuestCondition> mConditiones;
 
-	// ÈÎÎñÀàĞÍ
+	// ä»»åŠ¡å¥–åŠ±
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	EQuestType QType;
+	TArray<FQuestReward> mRewards;
 
-	// ÈÎÎñ½±Àø
+	// ä»»åŠ¡ç›®æ ‡
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FQuestReward> QRewards;
-
-	// ÈÎÎñÄ¿±ê
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FQuestObjective> QObjectives;
+	TArray<FQuestObjective> mObjectives;
 };
