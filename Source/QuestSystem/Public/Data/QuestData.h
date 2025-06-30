@@ -30,10 +30,11 @@ enum class EQuestPriority : uint8
 UENUM(BlueprintType)
 enum class EQuestState : uint8
 {
-	EQS_Accept = 0			UMETA(DisplayName = "接受"),
-	EQS_Going = 1			UMETA(DisplayName = "进行中"),
-	EQS_Completed = 2		UMETA(DisplayName = "完成"),
-	EQS_Canceled = 3		UMETA(DisplayName = "取消"),
+	//EQS_WaitTrigger = 0		UMETA(DisplayName = "等待触发"),
+	EQS_Accept 			UMETA(DisplayName = "接受"),
+	EQS_Going			UMETA(DisplayName = "进行中"),
+	EQS_Completed		UMETA(DisplayName = "完成"),
+	EQS_Canceled		UMETA(DisplayName = "取消"),
 };
 
 // 任务奖励类型
@@ -96,10 +97,6 @@ struct FQuestData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EQuestType mType;
 
-	// 任务触发方式
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	FQuestTriggerMode mTriggerMode;
-
 	// 后续任务ID
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FName> mNextID;
@@ -112,11 +109,15 @@ struct FQuestData : public FTableRowBase
 	UPROPERTY(EditAnywhere,BlueprintReadWrite)
 	TArray<FQuestCondition> mConditiones;
 
-	// 任务奖励
+	// 任务触发方式
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	TArray<FQuestReward> mRewards;
+	FQuestTriggerMode mTriggerMode;
 
 	// 任务目标
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TArray<FQuestObjective> mObjectives;
+
+	// 任务奖励
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TArray<FQuestReward> mRewards;
 };
