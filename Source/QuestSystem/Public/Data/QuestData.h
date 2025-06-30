@@ -26,6 +26,7 @@ enum class EQuestPriority : uint8
 	EQP_Urgent = 3		UMETA(DisplayName = "紧急"),
 };
 
+// 任务状态
 UENUM(BlueprintType)
 enum class EQuestState : uint8
 {
@@ -33,6 +34,14 @@ enum class EQuestState : uint8
 	EQS_Going = 1			UMETA(DisplayName = "进行中"),
 	EQS_Completed = 2		UMETA(DisplayName = "完成"),
 	EQS_Canceled = 3		UMETA(DisplayName = "取消"),
+};
+
+// 任务奖励类型
+UENUM(BlueprintType)
+enum class EQuestRewardType : uint8
+{
+	ERT_Empirical = 0		UMETA(DisplayName = "经验"),
+	ERT_Item = 1			UMETA(DisplayName = "物品"),
 };
 
 // 任务奖励
@@ -55,9 +64,16 @@ struct FQuestObjective
 	FName FQOId;
 };
 
-// 接收任务方式
+// 触发条件
 USTRUCT(BlueprintType)
 struct FQuestCondition
+{
+	GENERATED_BODY()
+};
+
+// 触发方式
+USTRUCT(BlueprintType)
+struct FQuestTriggerMode
 {
 	GENERATED_BODY()
 };
@@ -79,6 +95,10 @@ struct FQuestData : public FTableRowBase
 	// 任务类型
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EQuestType mType;
+
+	// 任务触发方式
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FQuestTriggerMode mTriggerMode;
 
 	// 后续任务ID
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
