@@ -8,6 +8,7 @@
 #include <GameplayTagContainer.h>
 #include "QuestData.generated.h"
 
+class UDialog;
 // 任务类型
 UENUM(BlueprintType)
 enum class EQuestType : uint8
@@ -53,6 +54,16 @@ enum class EQuestTriggerModeType : uint8
 	EQTT_Dialog	  = 1		UMETA(DisplayName = "对话"),
 };
 
+// 任务目标
+UENUM(BlueprintType)
+enum class EQuestObjectiveType : uint8
+{
+	EQOT_Interact = 0		UMETA(DisplayName = "交互类目标"),
+	EQOT_Kill = 1			UMETA(DisplayName = "击杀目标"),
+	EQOT_Collect = 2		UMETA(DisplayName = "收集目标"),
+	EQOT_MoveTo  = 3		UMETA(DisplayName = "移动至目标"),
+};
+
 // 任务奖励
 USTRUCT(BlueprintType)
 struct FQuestReward
@@ -71,6 +82,9 @@ struct FQuestObjective
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly)
 	FName FQOId;
+
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	EQuestObjectiveType mObjectiveType;
 };
 
 // 触发条件
@@ -93,6 +107,10 @@ struct FQuestTriggerMode
 	// 触发类型
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	EQuestTriggerModeType mTriggerModeType;
+
+	// 对话结局ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName mEndTag;
 };
 
 // 任务
@@ -149,4 +167,18 @@ struct FQuestSequence : public FTableRowBase
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	TSoftObjectPtr<class ULevelSequence> mSequence;
+};
+
+// 对话框 触发方式
+USTRUCT(BlueprintType)
+struct FQuestDialog : public FTableRowBase
+{
+	GENERATED_BODY()
+	// 任务ID
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	FName mID;
+
+	// 对话系统资源
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+	TSoftObjectPtr<class UDialog> mDialog;
 };
