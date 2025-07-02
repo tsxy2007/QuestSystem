@@ -18,5 +18,5 @@ class QUESTSYSTEM_API UQuest : public UObject
 
 public:
 	UPROPERTY()
-	TArray<UQuestObjectiveBase*> mQuestObjectives;
+	TArray<TObjectPtr<UQuestObjectiveBase>> mQuestObjectives;
 };
