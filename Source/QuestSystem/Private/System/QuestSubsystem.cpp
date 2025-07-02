@@ -26,8 +26,12 @@ void UQuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		const UDataTable* DataTable = DataTablePtr.LoadSynchronous();
 		static const FString ContextString(TEXT("UQuestSubsystem::QuestDataTable"));
 
-		auto ForeachFun = [](const FName& key, const FQuestData& Value) mutable -> void {
+		auto ForeachFun = [](const FName& key, const FQuestData& InQuestItem) mutable -> void {
 			UE_LOG(LogTemp, Warning, TEXT("QuestTable = %s"), key);
+			for (int32 i = 0; i < InQuestItem.mObjectives.Num(); i++)
+			{
+				InQuestItem.mType;
+			}
 		};
 		DataTable->ForeachRow<FQuestData>(TEXT("UQuestSubsystem::QuestDataTable"), ForeachFun);
 	}

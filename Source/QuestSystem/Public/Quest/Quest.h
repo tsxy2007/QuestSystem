@@ -6,6 +6,7 @@
 #include "UObject/NoExportTypes.h"
 #include "Quest.generated.h"
 
+class UQuestObjectiveBase;
 /**
  * 
  */
@@ -14,4 +15,8 @@ class QUESTSYSTEM_API UQuest : public UObject
 {
 	GENERATED_BODY()
 	
+
+public:
+	UPROPERTY()
+	TArray<UQuestObjectiveBase*> mQuestObjectives;
 };
