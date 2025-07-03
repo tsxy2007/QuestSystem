@@ -18,4 +18,8 @@ public:
 
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual bool ShouldCreateSubsystem(UObject* Outer) const override;
+
+public:
+	UPROPERTY()
+	TMap<FName, TObjectPtr<UQuest>> mQuestMap;
 };

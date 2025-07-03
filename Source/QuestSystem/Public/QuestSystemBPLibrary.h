@@ -3,6 +3,7 @@
 #pragma once
 
 #include "Kismet/BlueprintFunctionLibrary.h"
+#include <Data/QuestData.h>
 #include "QuestSystemBPLibrary.generated.h"
 
 /* 
@@ -22,11 +23,14 @@
 *	For more info on custom blueprint nodes visit documentation:
 *	https://wiki.unrealengine.com/Custom_Blueprint_Node_Creation
 */
+
+class UQuestObjectiveBase;
 UCLASS()
 class UQuestSystemBPLibrary : public UBlueprintFunctionLibrary
 {
 	GENERATED_UCLASS_BODY()
 
-	UFUNCTION(BlueprintCallable, meta = (DisplayName = "Execute Sample function", Keywords = "QuestSystem sample test testing"), Category = "QuestSystemTesting")
-	static float QuestSystemSampleFunction(float Param);
+
+	UFUNCTION(BlueprintCallable, Category = "Quest System", meta = (WorldContext = "WorldContextObject"))
+	static UQuestObjectiveBase* CreateQuestObjective(UObject* WorldContextObject, EQuestObjectiveType QuestObjectiveType,TSoftClassPtr<UQuestObjectiveBase> ClassPtr = nullptr);
 };

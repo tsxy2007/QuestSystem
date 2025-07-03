@@ -31,34 +31,12 @@ void UQuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)
 		const UDataTable* DataTable = DataTablePtr.LoadSynchronous();
 		static const FString ContextString(TEXT("UQuestSubsystem::QuestDataTable"));
 
-		auto ForeachFun = [this](const FName& key, const FQuestData& InQuestItem) mutable -> void {
+		auto ForeachFun = [this](const FName& key, const FQuestData& InQuestItem) mutable -> void 
+		{
 			UE_LOG(LogTemp, Warning, TEXT("QuestTable = %s"), *key.ToString());
 			auto Quest = NewObject<UQuest>(this);
-			for (int32 i = 0; i < InQuestItem.mObjectives.Num(); i++)
-			{
-				const FQuestObjective& Objective = InQuestItem.mObjectives[i];
-				auto ObjectiveType = Objective.mObjectiveType;
-				UQuestObjectiveBase* ObjectiveItem = nullptr;
-				switch (ObjectiveType)
-				{
-				case EQuestObjectiveType::EQOT_Interact:
-					ObjectiveItem = NewObject<UQuestObjective_Interact>(this);
-					break;
-				case EQuestObjectiveType::EQOT_Kill:
-					ObjectiveItem = NewObject<UQuestObjective_Kill>(this);
-					break;
-				case EQuestObjectiveType::EQOT_Collect:
-					ObjectiveItem = NewObject<UQuestObjective_Collect>(this);
-					break;
-				case EQuestObjectiveType::EQOT_MoveTo:
-					ObjectiveItem = NewObject<UQuestObjective_MoveTo>(this);
-					break;
-				default:
-					ObjectiveItem = NewObject<UQuestObjectiveBase>(this);
-					break;
-				}
-				Quest->mQuestObjectives.Add(ObjectiveItem);
-			}
+			Quest->Init(InQuestItem);
+			mQuestMap.Add(key, Quest);
 		};
 		DataTable->ForeachRow<FQuestData>(TEXT("UQuestSubsystem::QuestDataTable"), ForeachFun);
 	}

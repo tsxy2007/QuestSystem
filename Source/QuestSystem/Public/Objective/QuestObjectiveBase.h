@@ -25,6 +25,8 @@ class QUESTSYSTEM_API UQuestObjectiveBase : public UObject
 	GENERATED_BODY()
 
 public:
+    UQuestObjectiveBase(const FObjectInitializer& ObjectInitializer);
+public:
     // 激活目标
     UFUNCTION(BlueprintCallable)
     virtual void Activate();
@@ -36,6 +38,10 @@ public:
     // 失败处理
     UFUNCTION(BlueprintCallable)
     virtual void Fail();
+
+    // 判定是否完成
+    UFUNCTION(BlueprintCallable)
+    virtual  bool IsComplete() const;
 
     // 目标描述（显示在UI中）
     UPROPERTY(EditAnywhere, BlueprintReadWrite)

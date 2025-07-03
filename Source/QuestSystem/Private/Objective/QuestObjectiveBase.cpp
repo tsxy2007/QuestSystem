@@ -3,6 +3,12 @@
 
 #include "Objective/QuestObjectiveBase.h"
 
+UQuestObjectiveBase::UQuestObjectiveBase(const FObjectInitializer& ObjectInitializer)
+    :Super(ObjectInitializer)
+{
+
+}
+
 void UQuestObjectiveBase::Activate()
 {
     Status = EObjectiveStatus::Active;
@@ -19,4 +25,9 @@ void UQuestObjectiveBase::Fail()
 {
     Status = EObjectiveStatus::Failed;
     OnObjectiveUpdated.Broadcast(this);
+}
+
+bool UQuestObjectiveBase::IsComplete() const
+{
+    return Status == EObjectiveStatus::Completed;
 }
