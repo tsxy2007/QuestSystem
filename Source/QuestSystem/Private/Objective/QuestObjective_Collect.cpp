@@ -23,3 +23,7 @@ void UQuestObjective_Collect::Fail()
 {
 	Super::Fail();
 }
+
+void UQuestObjective_Collect::OnInit()
+{
+}

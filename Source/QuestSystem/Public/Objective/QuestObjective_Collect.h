@@ -25,4 +25,7 @@ public:
 
     // 失败处理
     virtual void Fail()override;
+
+    // 初始化
+    virtual void OnInit() override;
 };

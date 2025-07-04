@@ -2,6 +2,8 @@
 
 
 #include "Components/QuestComponent.h"
+#include <Setting/QuestDevelopSettings.h>
+#include <Data/QuestData.h>
 
 // Sets default values for this component's properties
 UQuestComponent::UQuestComponent()
@@ -19,8 +21,28 @@ void UQuestComponent::BeginPlay()
 {
 	Super::BeginPlay();
 
+	mPlayerState = Cast<APlayerState>(GetOwner());
+	check(mPlayerState);
 	// ...
-	
+	auto Settings = GetDefault<UQuestDevelopSettings>();
+
+	for (int32 i = 0; i < Settings->QuestDataTables.Num(); i++)
+	{
+		TSoftObjectPtr<UDataTable> DataTablePtr = Settings->QuestDataTables[i];
+		const UDataTable* DataTable = DataTablePtr.LoadSynchronous();
+		static const FString ContextString(TEXT("UQuestSubsystem::QuestDataTable"));
+
+		auto ForeachFun = [this](const FName& key, const FQuestData& InQuestItem) mutable -> void
+			{
+				UE_LOG(LogTemp, Warning, TEXT("QuestTable = %s"), *key.ToString());
+				auto Quest = NewObject<UQuest>();
+				Quest->Init(InQuestItem);
+				mQuestMap.Add(key, Quest);
+			};
+		DataTable->ForeachRow<FQuestData>(TEXT("UQuestSubsystem::QuestDataTable"), ForeachFun);
+	}
+
+
 }
 
 

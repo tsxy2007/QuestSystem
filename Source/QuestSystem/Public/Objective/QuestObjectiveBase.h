@@ -27,6 +27,10 @@ class QUESTSYSTEM_API UQuestObjectiveBase : public UObject
 public:
     UQuestObjectiveBase(const FObjectInitializer& ObjectInitializer);
 public:
+    UFUNCTION(BlueprintCallable)
+    virtual void Init(const FQuestObjective& InObjective);
+    virtual void OnInit();
+
     // 激活目标
     UFUNCTION(BlueprintCallable)
     virtual void Activate();
@@ -62,4 +66,7 @@ public:
     // 目标更新时触发（用于UI更新）
     UPROPERTY(BlueprintAssignable)
     FOnObjectiveUpdated OnObjectiveUpdated;
+
+    UPROPERTY(Transient)
+    FQuestObjective Data;
 };

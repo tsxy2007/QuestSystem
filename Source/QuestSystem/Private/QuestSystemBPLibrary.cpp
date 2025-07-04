@@ -38,7 +38,7 @@ UQuestObjectiveBase* UQuestSystemBPLibrary::CreateQuestObjective(UObject* WorldC
 			ObjectiveItem = NewObject<UQuestObjective_MoveTo>(WorldContextObject);
 			break;
 		default:
-			ObjectiveItem = NewObject<UQuestObjectiveBase>(WorldContextObject);
+			ObjectiveItem = NewObject<UQuestObjective_Interact>(WorldContextObject);
 			break;
 		}
 	}

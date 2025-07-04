@@ -24,3 +24,7 @@ void UQuestObjective_Kill::Fail()
 {
 	Super::Complete();
 }
+
+void UQuestObjective_Kill::OnInit()
+{
+}

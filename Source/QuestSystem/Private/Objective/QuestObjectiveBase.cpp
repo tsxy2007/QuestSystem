@@ -9,6 +9,16 @@ UQuestObjectiveBase::UQuestObjectiveBase(const FObjectInitializer& ObjectInitial
 
 }
 
+void UQuestObjectiveBase::Init(const FQuestObjective& InObjective)
+{
+    Data = InObjective;
+    OnInit();
+}
+
+void UQuestObjectiveBase::OnInit()
+{
+}
+
 void UQuestObjectiveBase::Activate()
 {
     Status = EObjectiveStatus::Active;

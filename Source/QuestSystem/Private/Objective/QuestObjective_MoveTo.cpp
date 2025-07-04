@@ -22,3 +22,8 @@ void UQuestObjective_MoveTo::Fail()
 {
 	Super::Fail();
 }
+
+void UQuestObjective_MoveTo::OnInit()
+{
+
+}

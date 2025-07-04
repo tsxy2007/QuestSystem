@@ -19,6 +19,7 @@ void UQuest::Init(const FQuestData& InQuestData)
 	{
 		const FQuestObjective& Objective = mQuestData.mObjectives[i];
 		UQuestObjectiveBase* ObjectiveItem = UQuestSystemBPLibrary::CreateQuestObjective(this, Objective.mObjectiveType);
+		ObjectiveItem->Init(Objective);
 		mQuestObjectives.Add(ObjectiveItem);
 	}
 }

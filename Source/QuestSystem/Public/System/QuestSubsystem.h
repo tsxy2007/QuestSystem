@@ -3,18 +3,18 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "Subsystems/GameInstanceSubsystem.h"
+#include "Subsystems/LocalPlayerSubsystem.h"
 #include "QuestSubsystem.generated.h"
 
 /**
  * 
  */
 UCLASS()
-class QUESTSYSTEM_API UQuestSubsystem : public UGameInstanceSubsystem
+class QUESTSYSTEM_API UQuestSubsystem : public ULocalPlayerSubsystem
 {
 	GENERATED_BODY()
 public:
-	static UQuestSubsystem* Get(const UObject* Object);
+	static UQuestSubsystem* Get(const ULocalPlayer* LocalPlayer);
 
 	virtual void Initialize(FSubsystemCollectionBase& Collection) override;
 	virtual bool ShouldCreateSubsystem(UObject* Outer) const override;

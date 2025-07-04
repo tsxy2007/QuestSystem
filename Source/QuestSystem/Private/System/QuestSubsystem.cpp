@@ -10,13 +10,9 @@
 #include <Objective/QuestObjective_Collect.h>
 #include <Objective/QuestObjective_MoveTo.h>
 
-UQuestSubsystem* UQuestSubsystem::Get(const UObject* WorldContextObject)
+UQuestSubsystem* UQuestSubsystem::Get(const ULocalPlayer* LocalPlayer)
 {
-	UWorld* World = GEngine->GetWorldFromContextObject(WorldContextObject, EGetWorldErrorMode::Assert);
-	check(World);
-	UQuestSubsystem* GI = UGameInstance::GetSubsystem<UQuestSubsystem>(World->GetGameInstance());
-	check(GI);
-	return GI;
+	return LocalPlayer ? LocalPlayer->GetSubsystem<UQuestSubsystem>() : nullptr;
 }
 
 void UQuestSubsystem::Initialize(FSubsystemCollectionBase& Collection)

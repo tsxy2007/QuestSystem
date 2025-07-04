@@ -7,6 +7,7 @@
 #include "QuestComponent.generated.h"
 
 struct FQuestData;
+class UQuest;
 
 UCLASS( ClassGroup=(Custom), meta=(BlueprintSpawnableComponent) )
 class QUESTSYSTEM_API UQuestComponent : public UActorComponent
@@ -28,4 +29,10 @@ public:
 public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly)
 	TArray<FName> CurrentQuestArray;
+
+	UPROPERTY()
+	TMap<FName, TObjectPtr<UQuest>> mQuestMap;
+
+	UPROPERTY()
+	TObjectPtr<APlayerState> mPlayerState;
 };

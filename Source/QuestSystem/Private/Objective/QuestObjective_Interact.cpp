@@ -23,3 +23,7 @@ void UQuestObjective_Interact::Fail()
 {
 	Super::Fail();
 }
+
+void UQuestObjective_Interact::OnInit()
+{
+}
