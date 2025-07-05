@@ -4,6 +4,9 @@
 #include "Components/QuestComponent.h"
 #include <Setting/QuestDevelopSettings.h>
 #include <Data/QuestData.h>
+#include <GameFramework/PlayerState.h>
+#include <Quest/Quest.h>
+#include <Objective/QuestObjectiveBase.h>
 
 // Sets default values for this component's properties
 UQuestComponent::UQuestComponent()
@@ -35,14 +38,16 @@ void UQuestComponent::BeginPlay()
 		auto ForeachFun = [this](const FName& key, const FQuestData& InQuestItem) mutable -> void
 			{
 				UE_LOG(LogTemp, Warning, TEXT("QuestTable = %s"), *key.ToString());
-				auto Quest = NewObject<UQuest>();
+				auto Quest = NewObject<UQuest>(this);
 				Quest->Init(InQuestItem);
 				mQuestMap.Add(key, Quest);
 			};
 		DataTable->ForeachRow<FQuestData>(TEXT("UQuestSubsystem::QuestDataTable"), ForeachFun);
 	}
-
-
+	OnObjectiveCollected.AddDynamic(this, &UQuestComponent::OnObjectiveCollectedFunc);
+	OnObjectiveKill.AddDynamic(this, &UQuestComponent::OnObjectiveKillFunc);
+	OnObjectiveInteract.AddDynamic(this, &UQuestComponent::OnObjectiveInteractFunc);
+	OnObjectiveMoveTo.AddDynamic(this, &UQuestComponent::OnObjectiveMoveToFunc);
 }
 
 
@@ -52,5 +57,28 @@ void UQuestComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActor
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
 
 	// ...
+}
+
+void UQuestComponent::OnObjectiveCollectedFunc(FName InItemTag, int32 InNum)
+{
+	for (auto ActiveQuest : mActiveQuests)
+	{
+		for (auto ActiveQuestObjective : ActiveQuest->mQuestObjectives)
+		{
+			//ActiveQuestObjective->UpdateObjectiveProgress(InItemTag, InNum);
+		}
+	}
+}
+
+void UQuestComponent::OnObjectiveKillFunc(FName InItemTag, int32 InNum)
+{
+}
+
+void UQuestComponent::OnObjectiveInteractFunc(FName InTag)
+{
+}
+
+void UQuestComponent::OnObjectiveMoveToFunc(FName InTag)
+{
 }
 

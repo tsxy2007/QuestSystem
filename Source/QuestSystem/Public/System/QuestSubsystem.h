@@ -22,4 +22,5 @@ public:
 public:
 	UPROPERTY()
 	TMap<FName, TObjectPtr<UQuest>> mQuestMap;
+
 };

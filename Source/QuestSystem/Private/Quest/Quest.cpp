@@ -35,6 +35,11 @@ void UQuest::StartQuest()
 	}
 }
 
+void UQuest::Complete()
+{
+
+}
+
 bool UQuest::IsComplete() const
 {
 	for (UQuestObjectiveBase* Objective : mQuestObjectives)
@@ -45,4 +50,13 @@ bool UQuest::IsComplete() const
 		}
 	}
 	return true;
+}
+
+void UQuest::UpdateObjectiveProgress(FName ObjectiveID, int32 Delta)
+{
+}
+
+void UQuest::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
 }

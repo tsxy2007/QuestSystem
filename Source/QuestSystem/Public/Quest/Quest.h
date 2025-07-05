@@ -25,9 +25,22 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void StartQuest();
 
+	// 完成任务
+	UFUNCTION(BlueprintCallable)
+	void Complete();
+
 	// 检查任务是否完成
 	UFUNCTION(BlueprintCallable)
 	bool IsComplete() const;
+
+
+    // 更新目标进度
+    UFUNCTION(BlueprintCallable)
+    void UpdateObjectiveProgress(FName ObjectiveID, int32 Delta);
+
+    // 复制支持
+    virtual bool IsSupportedForNetworking() const override { return true; }
+    virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 public:
 	UPROPERTY()
 	TArray<TObjectPtr<UQuestObjectiveBase>> mQuestObjectives;
