@@ -63,10 +63,7 @@ void UQuestComponent::OnObjectiveCollectedFunc(FName InItemTag, int32 InNum)
 {
 	for (auto ActiveQuest : mActiveQuests)
 	{
-		for (auto ActiveQuestObjective : ActiveQuest->mQuestObjectives)
-		{
-			//ActiveQuestObjective->UpdateObjectiveProgress(InItemTag, InNum);
-		}
+		ActiveQuest->UpdateObjectiveProgress(InItemTag, InNum);
 	}
 }
 
